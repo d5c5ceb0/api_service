@@ -70,7 +70,10 @@ function BrandPill() {
 export function Hero(props: HeroProps) {
   const { t } = useTranslation()
   const { status } = useStatus()
-  const docsUrl = status?.docs_link as string | undefined
+  // Prefer a backend-configured external docs link; fall back to the built-in
+  // /docs page so the button always shows.
+  const docsUrl =
+    (status?.docs_link as string | undefined) || '/docs'
 
   return (
     <section className='relative z-10 overflow-hidden px-6 pt-24 pb-16 md:pt-32 md:pb-24 lg:pt-36 lg:pb-28'>

@@ -48,8 +48,22 @@ afterEach(() => {
 })
 
 describe('useTopNavLinks', () => {
-  it('hides console, docs and about when the backend configures none of them', () => {
+  it('hides console and about, keeps agent hosting, docs, pricing and rankings by default', () => {
     const links = renderLinksWithStatus({})
+
+    expect(links.map((link) => link.href)).toEqual([
+      '/',
+      '/agents',
+      '/pricing',
+      '/rankings',
+      '/docs',
+    ])
+  })
+
+  it('hides agent hosting and docs when the backend disables them', () => {
+    const links = renderLinksWithStatus({
+      HeaderNavModules: JSON.stringify({ agents: false, docs: false }),
+    })
 
     expect(links.map((link) => link.href)).toEqual([
       '/',
@@ -58,17 +72,17 @@ describe('useTopNavLinks', () => {
     ])
   })
 
-  it('shows console, docs and about only when the backend enables them', () => {
+  it('shows console and about only when the backend enables them', () => {
     const links = renderLinksWithStatus({
       HeaderNavModules: JSON.stringify({
         console: true,
-        docs: true,
         about: true,
       }),
     })
 
     expect(links.map((link) => link.href)).toEqual([
       '/',
+      '/agents',
       '/dashboard',
       '/pricing',
       '/rankings',
@@ -77,10 +91,9 @@ describe('useTopNavLinks', () => {
     ])
   })
 
-  it('uses the backend docs_link as an external docs entry when docs is enabled', () => {
+  it('uses the backend docs_link as an external docs entry when configured', () => {
     const links = renderLinksWithStatus({
       docs_link: 'https://docs.example.com',
-      HeaderNavModules: JSON.stringify({ docs: true }),
     })
 
     const docsLink = links.find((link) => link.href === 'https://docs.example.com')

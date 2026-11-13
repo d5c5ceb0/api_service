@@ -31,18 +31,20 @@ export type HeaderNavModules = {
   rankings: ModuleAccess
   docs: boolean
   about: boolean
+  agents: boolean
   [key: string]: boolean | ModuleAccess
 }
 
 const DEFAULT_HEADER_NAV_MODULES: HeaderNavModules = {
   home: true,
-  // Console / Docs / About default to hidden in the top navigation; the
-  // backend can re-enable each with `true` in HeaderNavModules.
+  // Console / About default to hidden in the top navigation; the backend can
+  // re-enable each with `true` in HeaderNavModules.
   console: false,
   pricing: { enabled: true, requireAuth: false },
   rankings: { enabled: true, requireAuth: false },
-  docs: false,
+  docs: true,
   about: false,
+  agents: true,
 }
 
 const DEFAULTS: Record<HeaderNavModule, ModuleAccess> = {

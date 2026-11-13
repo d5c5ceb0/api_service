@@ -43,8 +43,10 @@ export type TopNavLink = {
  *   about: true
  * }
  *
- * Console / Docs / About default to hidden and only appear when the backend
- * explicitly enables them (`"console": true`, `"docs": true`, `"about": true`).
+ * Console / About default to hidden and only appear when the backend
+ * explicitly enables them (`"console": true`, `"about": true`). Docs and the
+ * Agent Hosting page default to visible; the backend can hide them with
+ * `false`.
  */
 export function useTopNavLinks(): TopNavLink[] {
   const { t } = useTranslation()
@@ -70,6 +72,11 @@ export function useTopNavLinks(): TopNavLink[] {
     links.push({ title: t('Home'), href: '/' })
   }
 
+  // Agent Hosting — hidden when the backend explicitly disables it
+  if (modules?.agents !== false) {
+    links.push({ title: t('Agent Hosting'), href: '/agents' })
+  }
+
   // Console -> /dashboard (new console path) — hidden unless explicitly enabled
   if (modules?.console === true) {
     links.push({ title: t('Console'), href: '/dashboard' })
@@ -89,8 +96,8 @@ export function useTopNavLinks(): TopNavLink[] {
     links.push({ title: t('Rankings'), href: '/rankings', requiresAuth })
   }
 
-  // Docs (supports external links) — hidden unless explicitly enabled
-  if (modules?.docs === true) {
+  // Docs (supports external links) — hidden when the backend disables it
+  if (modules?.docs !== false) {
     if (docsLink) {
       links.push({ title: t('Docs'), href: docsLink, external: true })
     } else {
