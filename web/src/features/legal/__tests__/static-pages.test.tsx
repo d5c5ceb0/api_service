@@ -28,22 +28,28 @@ vi.mock('@/components/layout', () => ({
   ),
 }))
 
-// Creem review requirement: the owner-supplied placeholders must stay visible
-// verbatim on every legal page — they are never to be invented or dropped.
+// Owner decision (option B, following other indie Creem merchants): no
+// legal-entity or governing-law clauses on public pages, and a concrete
+// refund rule. The pages must therefore never show template placeholders.
 describe('Legal static pages', () => {
-  test('renders the terms page with the legal entity and refund placeholders visible', () => {
+  test('renders the terms page with the concrete refund rule and no placeholders', () => {
     render(<TermsPage />)
 
     expect(screen.getByRole('heading', { level: 1 })).toHaveTextContent(
       '用户协议'
     )
     expect(
-      screen.getByText(/本服务由 \{\{LEGAL_ENTITY\}\} 运营/)
+      screen.getByText(
+        '订阅可随时取消；取消后，当前计费周期的剩余时间不予退款。除适用法律强制要求外，已开始的计费周期均不予退款。'
+      )
     ).toBeInTheDocument()
-    expect(screen.getByText(/已开始的计费周期不予退款/)).toBeInTheDocument()
-    expect(screen.getByText(/\{\{REFUND_POLICY\}\}/)).toBeInTheDocument()
-    expect(screen.getByText(/\{\{GOVERNING_LAW\}\}/)).toBeInTheDocument()
     expect(screen.getByText(/转售为独立 API 产品/)).toBeInTheDocument()
+    expect(
+      screen.getByText('如有问题，请联系 support@zkp.cloud。')
+    ).toBeInTheDocument()
+    expect(
+      screen.queryByText(/\{\{(LEGAL_ENTITY|GOVERNING_LAW|REFUND_POLICY)\}\}/)
+    ).not.toBeInTheDocument()
   })
 
   test('renders the privacy page with the collected data inventory', () => {
@@ -52,8 +58,10 @@ describe('Legal static pages', () => {
     expect(screen.getByRole('heading', { level: 1 })).toHaveTextContent(
       '隐私政策'
     )
-    expect(screen.getByText(/\{\{LEGAL_ENTITY\}\}/)).toBeInTheDocument()
     expect(screen.getByText(/Creem/)).toBeInTheDocument()
+    expect(
+      screen.queryByText(/\{\{LEGAL_ENTITY\}\}/)
+    ).not.toBeInTheDocument()
   })
 
   test('renders the acceptable use policy with the resale prohibition', () => {

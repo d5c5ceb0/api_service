@@ -22,9 +22,11 @@ For commercial licensing, please contact support@quantumnous.com
  * Creem compliance requirements:
  * - Legal text stays Chinese regardless of the UI language; keys are the
  *   Chinese literals themselves (identity translation in en.json).
- * - The {{LEGAL_ENTITY}}, {{GOVERNING_LAW}} and {{REFUND_POLICY}}
- *   placeholders are intentional and must stay visible — the owner fills
- *   them in. Never invent a legal entity, jurisdiction or refund rule.
+ * - Per the owner's decision (following the practice of other indie Creem
+ *   merchants, e.g. literun.dev): the pages do NOT name a legal entity or
+ *   governing law — the support email is the contact point. The refund
+ *   rule is concrete: subscriptions cancel any time, and the remaining
+ *   time of the current billing period is not refunded.
  */
 import { useTranslation } from 'react-i18next'
 
@@ -73,73 +75,61 @@ function StaticLegalPage(props: StaticLegalPageProps) {
 
 const TERMS_SECTIONS: readonly LegalSection[] = [
   {
-    headingKey: '一、运营主体',
+    headingKey: '一、服务内容',
     paragraphs: [
-      '本服务由 {{LEGAL_ENTITY}} 运营。通过注册或使用本服务，即表示你同意本用户协议。',
-    ],
-  },
-  {
-    headingKey: '二、服务内容',
-    paragraphs: [
+      '通过注册或使用本服务，即表示你同意本用户协议。',
       '客户购买的是 ZKP 托管 Agent 软件的订阅服务。ZKP 负责运行、扩缩容、版本管理和调用记录。',
       '套餐内包含的平台用量是本产品的服务额度，不可提现、不可转让、不可兑换现金，也不能在 ZKP 之外使用。',
     ],
   },
   {
-    headingKey: '三、客户内容与责任',
+    headingKey: '二、客户内容与责任',
     paragraphs: [
       '客户配置的提示词、工具输入与输出归客户所有，ZKP 不会将其用于训练基础模型。',
       '客户对其配置的工具、凭据与指令负责，并应确保其用途符合可接受使用政策。',
     ],
   },
   {
-    headingKey: '四、禁止用途',
+    headingKey: '三、禁止用途',
     paragraphs: [
       '禁止利用本服务从事违法活动、生成 NSFW 或性暗示内容、传播恶意软件、实施欺诈，或将 ZKP 及上游模型访问转售为独立 API 产品。详见可接受使用政策。',
     ],
   },
   {
-    headingKey: '五、取消订阅与退款',
+    headingKey: '四、取消订阅与退款',
     paragraphs: [
       '你可以随时在产品内的账单页面取消订阅，取消在当前计费周期结束时生效。',
-      '除适用法律强制要求外，已开始的计费周期不予退款。{{REFUND_POLICY}}',
+      '订阅可随时取消；取消后，当前计费周期的剩余时间不予退款。除适用法律强制要求外，已开始的计费周期均不予退款。',
     ],
   },
   {
-    headingKey: '六、适用法律与联系',
-    paragraphs: [
-      '本协议适用法律为 {{GOVERNING_LAW}}。',
-      '如有问题，请联系 support@zkp.cloud。',
-    ],
+    headingKey: '五、联系方式',
+    paragraphs: ['如有问题，请联系 support@zkp.cloud。'],
   },
 ]
 
 const PRIVACY_SECTIONS: readonly LegalSection[] = [
   {
-    headingKey: '一、数据控制者',
-    paragraphs: ['本服务的个人数据控制者为 {{LEGAL_ENTITY}}。'],
-  },
-  {
-    headingKey: '二、收集的数据',
+    headingKey: '一、收集的数据',
     paragraphs: [
       '我们收集以下数据：账户邮箱、支付服务商提供的账单标识、Agent 配置、提示词、工具调用日志和使用指标。',
     ],
   },
   {
-    headingKey: '三、数据用途',
+    headingKey: '二、数据用途',
     paragraphs: [
       '数据仅用于：提供本服务、计费、防止滥用和客户支持。',
       '你的提示词与输出不用于训练基础模型。数据在传输和静态存储中均加密。',
     ],
   },
   {
-    headingKey: '四、支付数据',
+    headingKey: '三、支付数据',
     paragraphs: [
       '支付数据由商户记录方（Creem）处理，ZKP 不存储原始银行卡数据。',
     ],
   },
   {
-    headingKey: '五、访问与删除',
+    headingKey: '四、访问与删除',
     paragraphs: [
       '如需访问或删除你的数据，请发送邮件至 support@zkp.cloud。',
     ],

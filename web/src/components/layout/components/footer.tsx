@@ -76,9 +76,9 @@ function LegalLinks(props: { leadingSeparator?: boolean }) {
   )
 }
 
-// ZKP site compliance row: always-visible legal pages, support email and
-// company entity. The {{LEGAL_ENTITY}} placeholder is intentional — the
-// owner fills in the real legal name before the store goes to review.
+// ZKP site compliance row: always-visible legal pages and support email.
+// No company-entity line: like other indie Creem merchants, the public
+// pages identify the operator through the support email only.
 function SiteComplianceLinks() {
   const { t } = useTranslation()
   const items: { key: string; label: string; href: string }[] = [
@@ -121,10 +121,6 @@ function SiteComplianceLinks() {
           )}
         </Fragment>
       ))}
-      <span aria-hidden='true' className='text-muted-foreground/30'>
-        ·
-      </span>
-      <span>{t('Company entity')}: {'{{LEGAL_ENTITY}}'}</span>
     </>
   )
 }
