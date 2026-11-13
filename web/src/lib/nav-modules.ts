@@ -36,11 +36,13 @@ export type HeaderNavModules = {
 
 const DEFAULT_HEADER_NAV_MODULES: HeaderNavModules = {
   home: true,
-  console: true,
+  // Console / Docs / About default to hidden in the top navigation; the
+  // backend can re-enable each with `true` in HeaderNavModules.
+  console: false,
   pricing: { enabled: true, requireAuth: false },
   rankings: { enabled: true, requireAuth: false },
-  docs: true,
-  about: true,
+  docs: false,
+  about: false,
 }
 
 const DEFAULTS: Record<HeaderNavModule, ModuleAccess> = {

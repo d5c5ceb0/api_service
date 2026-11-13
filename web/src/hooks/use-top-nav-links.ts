@@ -42,6 +42,9 @@ export type TopNavLink = {
  *   docs: true,
  *   about: true
  * }
+ *
+ * Console / Docs / About default to hidden and only appear when the backend
+ * explicitly enables them (`"console": true`, `"docs": true`, `"about": true`).
  */
 export function useTopNavLinks(): TopNavLink[] {
   const { t } = useTranslation()
@@ -67,8 +70,8 @@ export function useTopNavLinks(): TopNavLink[] {
     links.push({ title: t('Home'), href: '/' })
   }
 
-  // Console -> /dashboard (new console path)
-  if (modules?.console !== false) {
+  // Console -> /dashboard (new console path) — hidden unless explicitly enabled
+  if (modules?.console === true) {
     links.push({ title: t('Console'), href: '/dashboard' })
   }
 
@@ -86,8 +89,8 @@ export function useTopNavLinks(): TopNavLink[] {
     links.push({ title: t('Rankings'), href: '/rankings', requiresAuth })
   }
 
-  // Docs (supports external links)
-  if (modules?.docs !== false) {
+  // Docs (supports external links) — hidden unless explicitly enabled
+  if (modules?.docs === true) {
     if (docsLink) {
       links.push({ title: t('Docs'), href: docsLink, external: true })
     } else {
@@ -95,8 +98,8 @@ export function useTopNavLinks(): TopNavLink[] {
     }
   }
 
-  // About
-  if (modules?.about !== false) {
+  // About — hidden unless explicitly enabled
+  if (modules?.about === true) {
     links.push({ title: t('About'), href: '/about' })
   }
 

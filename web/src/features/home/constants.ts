@@ -18,130 +18,99 @@ For commercial licensing, please contact support@quantumnous.com
 */
 /**
  * Home page constants
- * All hardcoded data for home page sections
+ * Hardcoded data for the ZKP home page sections.
+ * User-facing strings are English-literal i18n keys; components render them
+ * through t(). Keys passed dynamically (outside t('...') calls) are
+ * registered in src/i18n/static-keys.ts and mirrored in i18n-keys.ts.
  */
-import { type TFunction } from 'i18next'
 
-// Layout - Main base classes
-export const MAIN_BASE_CLASSES = 'bg-background text-foreground w-full'
-
-// Hero section - AI Applications (Left side)
-export const AI_APPLICATIONS = [
-  'LobeHub.Color',
-  'Dify.Color',
-  'OpenWebUI',
-  'Cline',
-] as const
-
-// Hero section - AI Models (Right side)
-export const AI_MODELS = [
-  'Qwen.Color',
-  'DeepSeek.Color',
-  'Doubao.Color',
-  'OpenAI',
+// Provider marquee — names resolved through getLobeIcon (src/lib/lobe-icon.tsx)
+export const PROVIDER_ICONS = [
+  'OpenAI.Color',
   'Claude.Color',
   'Gemini.Color',
+  'DeepSeek.Color',
+  'Qwen.Color',
+  'Doubao.Color',
+  'Mistral.Color',
+  'Cohere.Color',
+  'Groq',
+  'XAI',
+  'Ollama',
+  'Moonshot.Color',
+  'Zhipu.Color',
+  'Azure.Color',
+  'Bedrock.Color',
 ] as const
 
-// Hero section - Gateway Features
-export const GATEWAY_FEATURES = [
-  'Cost Tracking',
-  'Model Access',
-  'Guardrails',
-  'Observability',
-  'Budgets',
-  'Load Balancing',
-  'Rate Limiting',
-  'Token Mgmt',
-  'Prompt Caching',
-  'Pass-Through',
-] as const
+// Pricing section — tier data is shaped so a future checkout integration
+// only needs to add a checkoutUrl / onSubscribe field, no component reshape.
+type PricingTierId = 'free' | 'pro' | 'scale'
 
-// Stats section - Default statistics
-export const DEFAULT_STATS = [
-  {
-    value: '50',
-    suffix: '+',
-    description: 'upstream services integrated',
-  },
-  {
-    value: '100',
-    suffix: '+',
-    description: 'model billing support',
-  },
-  {
-    value: '50',
-    suffix: '+',
-    description: 'compatible API routes',
-  },
-  {
-    value: '10',
-    suffix: '+',
-    description: 'scheduling controls',
-  },
-] as const
-
-// Features section - Default features
-export const DEFAULT_FEATURES = [
-  {
-    title: 'Lightning Fast',
-    description:
-      'Optimized network architecture ensures millisecond response times',
-    iconName: 'Zap',
-  },
-  {
-    title: 'Secure & Reliable',
-    description:
-      'Enterprise-grade security with comprehensive permission management',
-    iconName: 'Shield',
-  },
-  {
-    title: 'Global Coverage',
-    description: 'Multi-region deployment for stable global access',
-    iconName: 'Globe',
-  },
-  {
-    title: 'Developer Friendly',
-    description: 'Compatible API routes for common AI application workflows',
-    iconName: 'Code',
-  },
-  {
-    title: 'High Performance',
-    description: 'Support for high concurrency with automatic load balancing',
-    iconName: 'Gauge',
-  },
-  {
-    title: 'Transparent Billing',
-    description: 'Pay-as-you-go with real-time usage monitoring',
-    iconName: 'DollarSign',
-  },
-  {
-    title: 'Team Collaboration',
-    description: 'Multi-user management with flexible permission allocation',
-    iconName: 'Users',
-  },
-  {
-    title: 'Open Source',
-    description: 'Community driven, self-hosted, and extensible',
-    iconName: 'HeartHandshake',
-  },
-] as const
-
-export function getGatewayFeatures(t: TFunction) {
-  return GATEWAY_FEATURES.map((feature) => t(feature))
+export interface PricingTier {
+  id: PricingTierId
+  nameKey: string
+  priceMonthly: number
+  currency: 'USD'
+  periodKey: string
+  taglineKey: string
+  featureKeys: readonly string[]
+  ctaKey: string
+  ctaTo: '/sign-up'
+  highlighted?: boolean
 }
 
-export function getDefaultStats(t: TFunction) {
-  return DEFAULT_STATS.map((stat) => ({
-    ...stat,
-    description: stat.description ? t(stat.description) : undefined,
-  }))
-}
-
-export function getDefaultFeatures(t: TFunction) {
-  return DEFAULT_FEATURES.map((feature) => ({
-    ...feature,
-    title: t(feature.title),
-    description: t(feature.description),
-  }))
-}
+export const PRICING_TIERS: readonly PricingTier[] = [
+  {
+    id: 'free',
+    nameKey: 'Free',
+    priceMonthly: 0,
+    currency: 'USD',
+    periodKey: 'per month',
+    taglineKey: 'For exploring the platform',
+    featureKeys: [
+      '1M tokens per month',
+      'Community model catalog',
+      'OpenAI-compatible API',
+      'Basic usage analytics',
+      'Community support',
+    ],
+    ctaKey: 'Start Free',
+    ctaTo: '/sign-up',
+  },
+  {
+    id: 'pro',
+    nameKey: 'Pro',
+    priceMonthly: 29,
+    currency: 'USD',
+    periodKey: 'per month',
+    taglineKey: 'For growing agent workloads',
+    featureKeys: [
+      '50M tokens per month',
+      'All 40+ model providers',
+      'Agent autoscaling & versioning',
+      'Full traces, logs and cost analytics',
+      'Priority email support',
+    ],
+    ctaKey: 'Choose Pro',
+    ctaTo: '/sign-up',
+  },
+  {
+    id: 'scale',
+    nameKey: 'Scale',
+    priceMonthly: 99,
+    currency: 'USD',
+    periodKey: 'per month',
+    taglineKey: 'For teams running agents in production',
+    featureKeys: [
+      'Custom token volume with volume pricing',
+      'Dedicated infrastructure options',
+      'SLA-backed uptime guarantee',
+      'SSO, audit logs and role-based access',
+      'Dedicated support engineer',
+    ],
+    ctaKey: 'Choose Scale',
+    ctaTo: '/sign-up',
+    highlighted: true,
+  },
+]

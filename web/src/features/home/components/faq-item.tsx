@@ -17,43 +17,26 @@ along with this program. If not, see <https://www.gnu.org/licenses/>.
 For commercial licensing, please contact support@quantumnous.com
 */
 import {
-  Zap,
-  Shield,
-  Globe,
-  Code,
-  Gauge,
-  DollarSign,
-  Users,
-  HeartHandshake,
-  type LucideIcon,
-} from 'lucide-react'
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from '@/components/ui/accordion'
 
-/**
- * Map of icon names to Lucide icon components
- */
-const ICON_MAP: Record<string, LucideIcon> = {
-  Zap,
-  Shield,
-  Globe,
-  Code,
-  Gauge,
-  DollarSign,
-  Users,
-  HeartHandshake,
+interface FaqItemProps {
+  value: string
+  question: string
+  answer: string
 }
 
-/**
- * Get a Lucide icon component by name
- */
-export function getFeatureIcon(
-  iconName: string,
-  className?: string
-): React.ReactNode {
-  const Icon = ICON_MAP[iconName]
-  if (!Icon) {
-    // eslint-disable-next-line no-console
-    console.warn(`Icon "${iconName}" not found in icon map`)
-    return null
-  }
-  return <Icon className={className} />
+export function FaqItem(props: FaqItemProps) {
+  return (
+    <AccordionItem value={props.value}>
+      <AccordionTrigger className='text-start hover:no-underline'>
+        {props.question}
+      </AccordionTrigger>
+      <AccordionContent className='text-muted-foreground leading-relaxed'>
+        {props.answer}
+      </AccordionContent>
+    </AccordionItem>
+  )
 }

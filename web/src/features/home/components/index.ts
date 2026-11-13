@@ -16,8 +16,12 @@ along with this program. If not, see <https://www.gnu.org/licenses/>.
 
 For commercial licensing, please contact support@quantumnous.com
 */
+export { AgentsBento } from './sections/agents-bento'
 export { CTA } from './sections/cta'
-export { Features } from './sections/features'
+export { Faq } from './sections/faq'
 export { Hero } from './sections/hero'
 export { HowItWorks } from './sections/how-it-works'
+export { Pricing } from './sections/pricing'
+export { ProviderShowcase } from './sections/provider-showcase'
 export { Stats } from './sections/stats'
+export { UnifiedApi } from './sections/unified-api'

@@ -16,7 +16,7 @@ along with this program. If not, see <https://www.gnu.org/licenses/>.
 
 For commercial licensing, please contact support@quantumnous.com
 */
-import { Settings, Zap, BarChart3 } from 'lucide-react'
+import { LineChart, PlugZap, Rocket } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
 
 import { AnimateInView } from '@/components/animate-in-view'
@@ -27,25 +27,27 @@ export function HowItWorks() {
   const steps = [
     {
       num: '1',
-      title: t('Configure'),
+      title: t('Connect providers'),
       desc: t(
-        'Add your API keys, set up channels and configure access permissions'
+        'Bring your own keys or use managed credits for OpenAI, Anthropic, Google and more.'
       ),
-      icon: <Settings className='size-6' strokeWidth={1.5} />,
+      icon: <PlugZap className='size-6' strokeWidth={1.5} />,
     },
     {
       num: '2',
-      title: t('Connect'),
+      title: t('Deploy your agent'),
       desc: t(
-        'Connect through OpenAI, Claude, Gemini, and other compatible API routes'
+        'Define instructions, tools and models in one config. Push to deploy — no servers to manage.'
       ),
-      icon: <Zap className='size-6' strokeWidth={1.5} />,
+      icon: <Rocket className='size-6' strokeWidth={1.5} />,
     },
     {
       num: '3',
-      title: t('Monitor'),
-      desc: t('Track usage, costs and performance with real-time analytics'),
-      icon: <BarChart3 className='size-6' strokeWidth={1.5} />,
+      title: t('Scale and observe'),
+      desc: t(
+        'Autoscaling handles traffic spikes while traces, logs and cost dashboards keep you in control.'
+      ),
+      icon: <LineChart className='size-6' strokeWidth={1.5} />,
     },
   ]
 
@@ -57,7 +59,7 @@ export function HowItWorks() {
             {t('How It Works')}
           </p>
           <h2 className='text-2xl font-bold tracking-tight md:text-3xl'>
-            {t('Three steps to get started')}
+            {t('Three steps to your first production agent')}
           </h2>
         </AnimateInView>
 

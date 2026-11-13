@@ -16,38 +16,30 @@ along with this program. If not, see <https://www.gnu.org/licenses/>.
 
 For commercial licensing, please contact support@quantumnous.com
 */
-import { Link } from '@tanstack/react-router'
-import { ArrowRight } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
 
-import { Button } from '@/components/ui/button'
+import { AnimateInView } from '@/components/animate-in-view'
 
-interface HeroButtonsProps {
-  isAuthenticated: boolean
+import { ProviderMarquee } from '../provider-marquee'
+
+interface ProviderShowcaseProps {
+  className?: string
 }
 
-/**
- * Hero section action buttons
- */
-export function HeroButtons({ isAuthenticated }: HeroButtonsProps) {
+export function ProviderShowcase(_props: ProviderShowcaseProps) {
   const { t } = useTranslation()
-  if (isAuthenticated) {
-    return (
-      <Button size='lg' render={<Link to='/dashboard' />}>
-        {t('Go to Dashboard')} <ArrowRight className='ml-2 h-5 w-5' />
-      </Button>
-    )
-  }
 
   return (
-    <>
-      <Button size='lg' render={<Link to='/sign-up' />}>
-        {t('Get Started')}
-        <ArrowRight className='ml-2 h-5 w-5' />
-      </Button>
-      <Button size='lg' variant='outline' render={<Link to='/sign-in' />}>
-        {t('Sign In')}
-      </Button>
-    </>
+    <section className='border-border/40 relative z-10 border-y px-6 py-14 md:py-16'>
+      <AnimateInView className='mx-auto mb-10 max-w-6xl text-center'>
+        <h2 className='text-xl font-bold tracking-tight md:text-2xl'>
+          {t('One endpoint. Every major model.')}
+        </h2>
+        <p className='text-muted-foreground mt-2 text-sm'>
+          {t('ZKP routes requests across 40+ providers with a single API key.')}
+        </p>
+      </AnimateInView>
+      <ProviderMarquee />
+    </section>
   )
 }
