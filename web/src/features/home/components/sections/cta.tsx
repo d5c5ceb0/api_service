@@ -60,7 +60,7 @@ export function CTA(props: CTAProps) {
         </h2>
         <p className='text-muted-foreground/80 mx-auto mt-5 max-w-md text-sm leading-relaxed md:text-base'>
           {t(
-            'Create an account, connect a provider and deploy your first agent in minutes.'
+            'Create an account, deploy your first agent and see your first trace in minutes.'
           )}
         </p>
         <div className='mt-8 flex items-center justify-center gap-3'>

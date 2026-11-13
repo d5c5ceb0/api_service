@@ -16,19 +16,10 @@ along with this program. If not, see <https://www.gnu.org/licenses/>.
 
 For commercial licensing, please contact support@quantumnous.com
 */
-import { api } from '@/lib/api'
+import { createFileRoute } from '@tanstack/react-router'
 
-import type { RankingPeriod, RankingsSnapshot } from './types'
+import { TermsPage } from '@/features/legal'
 
-type RankingsResponse = {
-  success: boolean
-  message?: string
-  data: RankingsSnapshot
-}
-
-export async function getRankings(
-  period: RankingPeriod
-): Promise<RankingsResponse> {
-  const res = await api.get('/api/rankings', { params: { period } })
-  return res.data
-}
+export const Route = createFileRoute('/terms')({
+  component: TermsPage,
+})

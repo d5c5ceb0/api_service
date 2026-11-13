@@ -104,10 +104,10 @@ export function Hero(props: HeroProps) {
             className='landing-animate-fade-up text-[clamp(2.25rem,4.5vw,3.25rem)] leading-[1.15] font-bold tracking-tight'
             style={{ animationDelay: '60ms' }}
           >
-            {t('Run AI agents on')}
+            {t('Deploy AI agents to')}
             <br />
             <span className='bg-gradient-to-r from-blue-400 via-violet-400 to-purple-500 bg-clip-text text-transparent'>
-              {t('every major model provider')}
+              {t('production')}
             </span>
           </h1>
           <p
@@ -115,7 +115,15 @@ export function Hero(props: HeroProps) {
             style={{ animationDelay: '120ms' }}
           >
             {t(
-              'Deploy your agents once, then route every call across 40+ providers through a single OpenAI-compatible endpoint. ZKP handles scaling, billing and observability.'
+              'Define your instructions, tools and model in one config — ZKP runs it for you, with autoscaling, versioning and full run traces built in.'
+            )}
+          </p>
+          <p
+            className='landing-animate-fade-up text-muted-foreground/60 mt-3 max-w-xl text-xs leading-relaxed opacity-0'
+            style={{ animationDelay: '150ms' }}
+          >
+            {t(
+              'ZKP is an independent product, not affiliated with or endorsed by any model provider. Model names on this page only refer to third-party models you can connect.'
             )}
           </p>
 

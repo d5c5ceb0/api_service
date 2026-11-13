@@ -72,16 +72,31 @@ describe('Home default branch', () => {
   test('renders the ZKP marketing sections for anonymous visitors', () => {
     render(<Home />)
 
+    // The headline renders as two lines (br between them), so the parts are
+    // asserted separately rather than as one contiguous string.
     expect(screen.getByRole('heading', { level: 1 })).toHaveTextContent(
-      'Run AI agents on'
+      'Deploy AI agents to'
     )
+    expect(screen.getByRole('heading', { level: 1 })).toHaveTextContent(
+      'production'
+    )
+    // Creem compliance: the independent-product disclaimer must stay visible.
+    expect(
+      screen.getByText(
+        'ZKP is an independent product, not affiliated with or endorsed by any model provider. Model names on this page only refer to third-party models you can connect.'
+      )
+    ).toBeInTheDocument()
     // Both the hero and the closing CTA offer Get Started; every instance
     // must point at the sign-up route.
     for (const link of screen.getAllByRole('link', { name: 'Get Started' })) {
       expect(link).toHaveAttribute('href', '/sign-up')
     }
     expect(screen.getByText('$99')).toBeInTheDocument()
-    expect(screen.getByText('Ship your first agent today.')).toBeInTheDocument()
+    expect(
+      screen.getByText(
+        'Create an account, deploy your first agent and see your first trace in minutes.'
+      )
+    ).toBeInTheDocument()
     expect(screen.getByTestId('footer-stub')).toBeInTheDocument()
   })
 
@@ -93,7 +108,9 @@ describe('Home default branch', () => {
       screen.getByRole('link', { name: 'Go to Dashboard' })
     ).toHaveAttribute('href', '/dashboard')
     expect(
-      screen.queryByText('Ship your first agent today.')
+      screen.queryByText(
+        'Create an account, deploy your first agent and see your first trace in minutes.'
+      )
     ).not.toBeInTheDocument()
     expect(screen.getByTestId('footer-stub')).toBeInTheDocument()
   })

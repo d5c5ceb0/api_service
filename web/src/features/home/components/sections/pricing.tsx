@@ -46,23 +46,14 @@ export function Pricing() {
 
         <div className='grid gap-6 md:grid-cols-3 md:gap-8'>
           {PRICING_TIERS.map((tier, i) => (
-            <AnimateInView
-              key={tier.id}
-              delay={i * 100}
-              animation='fade-up'
-              className={
-                tier.highlighted ? 'md:-translate-y-3 md:scale-[1.02]' : ''
-              }
-            >
+            <AnimateInView key={tier.id} delay={i * 100} animation='fade-up'>
               <PricingTierCard tier={tier} />
             </AnimateInView>
           ))}
         </div>
 
         <p className='text-muted-foreground/60 mt-10 text-center text-xs'>
-          {t(
-            'All plans include the full provider catalog. Prices are in USD, billed monthly.'
-          )}
+          {t('Prices are in USD, billed monthly.')}
         </p>
       </div>
     </section>

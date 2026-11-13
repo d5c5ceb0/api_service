@@ -22,26 +22,11 @@ For commercial licensing, please contact support@quantumnous.com
  * User-facing strings are English-literal i18n keys; components render them
  * through t(). Keys passed dynamically (outside t('...') calls) are
  * registered in src/i18n/static-keys.ts and mirrored in i18n-keys.ts.
+ *
+ * Creem review constraints: ZKP sells its own hosted-agent software as
+ * subscriptions. Plans describe product capabilities only — no token
+ * volumes, provider counts, uptime percentages or popularity badges.
  */
-
-// Provider marquee — names resolved through getLobeIcon (src/lib/lobe-icon.tsx)
-export const PROVIDER_ICONS = [
-  'OpenAI.Color',
-  'Claude.Color',
-  'Gemini.Color',
-  'DeepSeek.Color',
-  'Qwen.Color',
-  'Doubao.Color',
-  'Mistral.Color',
-  'Cohere.Color',
-  'Groq',
-  'XAI',
-  'Ollama',
-  'Moonshot.Color',
-  'Zhipu.Color',
-  'Azure.Color',
-  'Bedrock.Color',
-] as const
 
 // Pricing section — tier data is shaped so a future checkout integration
 // only needs to add a checkoutUrl / onSubscribe field, no component reshape.
@@ -57,7 +42,6 @@ export interface PricingTier {
   featureKeys: readonly string[]
   ctaKey: string
   ctaTo: '/sign-up'
-  highlighted?: boolean
 }
 
 export const PRICING_TIERS: readonly PricingTier[] = [
@@ -67,12 +51,11 @@ export const PRICING_TIERS: readonly PricingTier[] = [
     priceMonthly: 0,
     currency: 'USD',
     periodKey: 'per month',
-    taglineKey: 'For exploring the platform',
+    taglineKey: 'For trying out the platform',
     featureKeys: [
-      '1M tokens per month',
-      'Community model catalog',
-      'OpenAI-compatible API',
-      'Basic usage analytics',
+      'One workspace with a single agent',
+      'Run your agent and view run history',
+      'Connect your own model keys',
       'Community support',
     ],
     ctaKey: 'Start Free',
@@ -86,11 +69,11 @@ export const PRICING_TIERS: readonly PricingTier[] = [
     periodKey: 'per month',
     taglineKey: 'For growing agent workloads',
     featureKeys: [
-      '50M tokens per month',
-      'All 40+ model providers',
-      'Agent autoscaling & versioning',
-      'Full traces, logs and cost analytics',
-      'Priority email support',
+      'More agents per workspace',
+      'Autoscaling for agent runs',
+      'Version rollback for every agent',
+      'Full traces and cost dashboard',
+      'Email support',
     ],
     ctaKey: 'Choose Pro',
     ctaTo: '/sign-up',
@@ -103,14 +86,13 @@ export const PRICING_TIERS: readonly PricingTier[] = [
     periodKey: 'per month',
     taglineKey: 'For teams running agents in production',
     featureKeys: [
-      'Custom token volume with volume pricing',
-      'Dedicated infrastructure options',
-      'SLA-backed uptime guarantee',
-      'SSO, audit logs and role-based access',
-      'Dedicated support engineer',
+      'Single sign-on (SSO)',
+      'Audit log',
+      'Role-based access control',
+      'Higher concurrency',
+      'Dedicated support',
     ],
     ctaKey: 'Choose Scale',
     ctaTo: '/sign-up',
-    highlighted: true,
   },
 ]

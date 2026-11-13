@@ -38,18 +38,17 @@ describe('DocsPage', () => {
     const toc = screen.getByRole('navigation', {
       name: 'Documentation navigation',
     })
-    expect(toc.querySelectorAll('a').length).toBeGreaterThanOrEqual(9)
+    expect(toc.querySelectorAll('a').length).toBeGreaterThanOrEqual(8)
 
     for (const title of [
       'Introduction',
       'Quick Start',
-      'Authentication',
-      'Chat Completions API',
-      'Messages API',
-      'Embeddings API',
-      'Agent Hosting',
-      'Observability',
-      'Error Codes',
+      'Agent Configuration',
+      'API Keys',
+      'Running Agents',
+      'Traces and Run History',
+      'Plans and Billing',
+      'Support',
     ]) {
       expect(screen.getByRole('heading', { name: title })).toBeInTheDocument()
       expect(
@@ -58,13 +57,19 @@ describe('DocsPage', () => {
     }
   })
 
-  test('shows the chat completions sample and the error code table', () => {
+  test('shows the agent run example and the support contact, without raw-API resale sections', () => {
     render(<DocsPage />)
 
     expect(
-      screen.getByText(/curl https:\/\/api\.zkp\.ai\/v1\/chat\/completions/)
+      screen.getByText(/api\.zkp\.ai\/v1\/agents\/support-agent\/runs/)
     ).toBeInTheDocument()
-    expect(screen.getByRole('table')).toBeInTheDocument()
-    expect(screen.getByText('Invalid or revoked API key')).toBeInTheDocument()
+    expect(
+      screen.getByText(
+        'Questions, incidents or data deletion requests: email support@zkp.cloud.'
+      )
+    ).toBeInTheDocument()
+    // Creem compliance: the docs must not market raw-API endpoints.
+    expect(screen.queryByText(/v1\/chat\/completions/)).not.toBeInTheDocument()
+    expect(screen.queryByText('Embeddings API')).not.toBeInTheDocument()
   })
 })

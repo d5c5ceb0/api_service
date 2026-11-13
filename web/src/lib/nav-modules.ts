@@ -41,7 +41,9 @@ const DEFAULT_HEADER_NAV_MODULES: HeaderNavModules = {
   // re-enable each with `true` in HeaderNavModules.
   console: false,
   pricing: { enabled: true, requireAuth: false },
-  rankings: { enabled: true, requireAuth: false },
+  // Creem compliance: rankings is retired (the route redirects to /) and is
+  // hidden from the nav unless the backend explicitly re-enables it.
+  rankings: { enabled: false, requireAuth: false },
   docs: true,
   about: false,
   agents: true,

@@ -48,16 +48,31 @@ afterEach(() => {
 })
 
 describe('useTopNavLinks', () => {
-  it('hides console and about, keeps agent hosting, docs, pricing and rankings by default', () => {
+  it('hides console, about and rankings, keeps agent hosting, pricing and docs by default', () => {
     const links = renderLinksWithStatus({})
 
     expect(links.map((link) => link.href)).toEqual([
       '/',
       '/agents',
       '/pricing',
-      '/rankings',
       '/docs',
     ])
+  })
+
+  it('labels the pricing entry as Pricing', () => {
+    const links = renderLinksWithStatus({})
+
+    expect(links.find((link) => link.href === '/pricing')).toMatchObject({
+      title: 'Pricing',
+    })
+  })
+
+  it('shows rankings only when the backend explicitly re-enables them', () => {
+    const links = renderLinksWithStatus({
+      HeaderNavModules: JSON.stringify({ rankings: true }),
+    })
+
+    expect(links.map((link) => link.href)).toContain('/rankings')
   })
 
   it('hides agent hosting and docs when the backend disables them', () => {
@@ -65,11 +80,7 @@ describe('useTopNavLinks', () => {
       HeaderNavModules: JSON.stringify({ agents: false, docs: false }),
     })
 
-    expect(links.map((link) => link.href)).toEqual([
-      '/',
-      '/pricing',
-      '/rankings',
-    ])
+    expect(links.map((link) => link.href)).toEqual(['/', '/pricing'])
   })
 
   it('shows console and about only when the backend enables them', () => {
@@ -85,7 +96,6 @@ describe('useTopNavLinks', () => {
       '/agents',
       '/dashboard',
       '/pricing',
-      '/rankings',
       '/docs',
       '/about',
     ])

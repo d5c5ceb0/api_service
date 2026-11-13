@@ -34,17 +34,10 @@ export function Faq() {
 
   const faqs: FaqEntry[] = [
     {
-      value: 'providers',
-      question: t('Which model providers does ZKP support?'),
+      value: 'models',
+      question: t('Which models can my agents use?'),
       answer: t(
-        'ZKP aggregates 40+ providers, including OpenAI, Anthropic, Google, DeepSeek, Qwen, Mistral and more, all reachable with a single API key.'
-      ),
-    },
-    {
-      value: 'openai-compat',
-      question: t('Is the ZKP API compatible with OpenAI SDKs?'),
-      answer: t(
-        'Yes. Point any OpenAI-compatible SDK or framework at the ZKP base URL with your API key — no other code changes required.'
+        'Connect your own model keys, or use the platform usage included in your plan — in that case ZKP selects the available models, and the list shown in your console is authoritative.'
       ),
     },
     {
@@ -58,21 +51,21 @@ export function Faq() {
       value: 'data',
       question: t('What happens to my data?'),
       answer: t(
-        'Your prompts and results are never used for training. Request logs can be disabled at any time, and data is encrypted in transit and at rest.'
+        'Your prompts and results are never used for training, and data is encrypted in transit and at rest.'
       ),
     },
     {
       value: 'free-plan',
       question: t('What does the Free plan include?'),
       answer: t(
-        'One million tokens per month, the community model catalog and basic usage analytics — no credit card required.'
+        'One workspace with a single agent, run history, support for connecting your own model keys and community support — no credit card required.'
       ),
     },
     {
-      value: 'self-host',
-      question: t('Can I self-host ZKP?'),
+      value: 'cancel',
+      question: t('How do I cancel my subscription?'),
       answer: t(
-        'A self-hosted deployment option is available on the Scale plan for teams with strict compliance or data residency requirements.'
+        'You can cancel from the billing page at any time. Your plan stays active until the end of the current billing period.'
       ),
     },
   ]

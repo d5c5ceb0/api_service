@@ -33,8 +33,6 @@ import {
   Hero,
   HowItWorks,
   Pricing,
-  ProviderShowcase,
-  Stats,
   UnifiedApi,
 } from './components'
 import { useHomePageContent } from './hooks'
@@ -133,12 +131,10 @@ export function Home() {
   return (
     <PublicLayout showMainContainer={false}>
       <Hero isAuthenticated={isAuthenticated} />
-      <ProviderShowcase />
       <AgentsBento />
       <UnifiedApi />
       <HowItWorks />
       <Pricing />
-      <Stats />
       <Faq />
       <CTA isAuthenticated={isAuthenticated} />
       <Footer />

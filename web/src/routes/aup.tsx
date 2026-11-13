@@ -16,4 +16,10 @@ along with this program. If not, see <https://www.gnu.org/licenses/>.
 
 For commercial licensing, please contact support@quantumnous.com
 */
-export * from './format'
+import { createFileRoute } from '@tanstack/react-router'
+
+import { AupPage } from '@/features/legal'
+
+export const Route = createFileRoute('/aup')({
+  component: AupPage,
+})

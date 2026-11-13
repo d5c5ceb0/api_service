@@ -27,9 +27,9 @@ export function HowItWorks() {
   const steps = [
     {
       num: '1',
-      title: t('Connect providers'),
+      title: t('Connect models'),
       desc: t(
-        'Bring your own keys or use managed credits for OpenAI, Anthropic, Google and more.'
+        'Connect your own model keys, or use the platform usage included in your plan — the models available in your console are authoritative.'
       ),
       icon: <PlugZap className='size-6' strokeWidth={1.5} />,
     },
@@ -43,9 +43,9 @@ export function HowItWorks() {
     },
     {
       num: '3',
-      title: t('Scale and observe'),
+      title: t('View run records'),
       desc: t(
-        'Autoscaling handles traffic spikes while traces, logs and cost dashboards keep you in control.'
+        'Every run is traced — steps, tool calls and token usage are recorded so you can review exactly what happened.'
       ),
       icon: <LineChart className='size-6' strokeWidth={1.5} />,
     },

@@ -19,83 +19,27 @@ For commercial licensing, please contact support@quantumnous.com
 import { useTranslation } from 'react-i18next'
 
 import { AnimateInView } from '@/components/animate-in-view'
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 
-const CHAT_SNIPPET = `from openai import OpenAI
-
-client = OpenAI(
-    base_url="https://api.zkp.ai/v1",
-    api_key="zkp-sk-...",
-)
-
-stream = client.chat.completions.create(
-    model="claude-sonnet-4-5",
-    messages=[{"role": "user", "content": "hi"}],
-    stream=True,
-)`
-
-const MESSAGES_SNIPPET = `import anthropic
-
-client = anthropic.Anthropic(
-    base_url="https://api.zkp.ai",
-    api_key="zkp-sk-...",
-)
-
-message = client.messages.create(
-    model="gpt-5.1",
-    max_tokens=1024,
-    messages=[...],
-)`
-
-const RESPONSES_SNIPPET = `curl https://api.zkp.ai/v1/responses \\
+// Creem compliance: a single agent-run example. No raw chat/messages/
+// embeddings router snippets and no third-party model ids here — ZKP sells
+// hosted agents, not upstream model access.
+const AGENT_SNIPPET = `# Create an agent from one config
+curl https://api.zkp.ai/v1/agents \\
   -H "Authorization: Bearer zkp-sk-..." \\
+  -H "Content-Type: application/json" \\
   -d '{
-    "model": "gemini-3-pro",
-    "input": "Draft a launch post"
-  }'`
+    "name": "support-agent",
+    "instructions": "Answer customer questions using the linked knowledge base.",
+    "tools": [
+      {"type": "http", "name": "create_ticket", "url": "https://api.example.com/tickets"}
+    ],
+    "model": "your-connected-model"
+  }'
 
-const EMBEDDINGS_SNIPPET = `from openai import OpenAI
-
-client = OpenAI(
-    base_url="https://api.zkp.ai/v1",
-    api_key="zkp-sk-...",
-)
-
-embeddings = client.embeddings.create(
-    model="text-embedding-3-large",
-    input="Agent hosting, simplified",
-)`
-
-interface ApiTab {
-  value: string
-  labelKey: string
-  snippet: string
-}
-
-const API_TABS: readonly ApiTab[] = [
-  { value: 'chat', labelKey: 'Chat Completions', snippet: CHAT_SNIPPET },
-  { value: 'messages', labelKey: 'Messages API', snippet: MESSAGES_SNIPPET },
-  {
-    value: 'responses',
-    labelKey: 'Responses API',
-    snippet: RESPONSES_SNIPPET,
-  },
-  { value: 'embeddings', labelKey: 'Embeddings', snippet: EMBEDDINGS_SNIPPET },
-]
-
-function CodePanel(props: { tab: ApiTab }) {
-  const { t } = useTranslation()
-  return (
-    <TabsContent value={props.tab.value}>
-      <pre className='border-border/40 bg-muted/30 overflow-x-auto rounded-lg border p-4 font-mono text-xs leading-relaxed'>
-        <code>{props.tab.snippet}</code>
-      </pre>
-      <p className='text-muted-foreground/70 mt-2 text-right font-mono text-[10px]'>
-        200 OK · {t('Streaming response')}
-      </p>
-    </TabsContent>
-  )
-}
+# Run it — every run is traced
+curl https://api.zkp.ai/v1/agents/support-agent/runs \\
+  -H "Authorization: Bearer zkp-sk-..." \\
+  -d '{"input": "Where is my order #1234?"}'`
 
 export function UnifiedApi() {
   const { t } = useTranslation()
@@ -105,31 +49,26 @@ export function UnifiedApi() {
       <div className='mx-auto max-w-6xl'>
         <AnimateInView className='mb-16 max-w-lg'>
           <p className='text-muted-foreground mb-3 text-xs font-medium tracking-widest uppercase'>
-            {t('API Aggregation')}
+            {t('Agent Runtime')}
           </p>
           <h2 className='text-2xl leading-tight font-bold tracking-tight md:text-3xl'>
-            {t('One API. Every model.')}
+            {t('One config. One command. Your agent runs.')}
           </h2>
           <p className='text-muted-foreground/80 mt-4 text-sm leading-relaxed md:text-[15px]'>
             {t(
-              'Point your existing OpenAI SDK at ZKP and reach every provider — chat, tools, vision and embeddings, with streaming that just works.'
+              'Everything on ZKP is an agent: one config describes instructions, tools and the model. Create it, run it, and every run is traced end to end.'
             )}
           </p>
         </AnimateInView>
 
         <AnimateInView animation='scale-in' className='mx-auto max-w-3xl'>
-          <Tabs defaultValue='chat'>
-            <TabsList className='flex-wrap'>
-              {API_TABS.map((tab) => (
-                <TabsTrigger key={tab.value} value={tab.value}>
-                  {t(tab.labelKey)}
-                </TabsTrigger>
-              ))}
-            </TabsList>
-            {API_TABS.map((tab) => (
-              <CodePanel key={tab.value} tab={tab} />
-            ))}
-          </Tabs>
+          <pre className='border-border/40 bg-muted/30 overflow-x-auto rounded-lg border p-4 font-mono text-xs leading-relaxed'>
+            <code>{AGENT_SNIPPET}</code>
+          </pre>
+          <p className='text-muted-foreground/70 mt-2 text-right font-mono text-[10px]'>
+            {t('Run traced')} ·{' '}
+            {t('steps, tool calls and token usage recorded')}
+          </p>
         </AnimateInView>
       </div>
     </section>

@@ -20,7 +20,6 @@ import { Link } from '@tanstack/react-router'
 import { Check } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
 
-import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { Separator } from '@/components/ui/separator'
 import { cn } from '@/lib/utils'
@@ -68,9 +67,7 @@ export function PricingTierCard(props: PricingTierCardProps) {
     <div
       className={cn(
         'relative flex flex-col rounded-2xl border p-6 transition-colors md:p-8',
-        tier.highlighted
-          ? 'border-primary/60 bg-primary/[0.03] shadow-primary/5 shadow-lg'
-          : 'border-border/40 bg-background hover:bg-muted/20',
+        'border-border/40 bg-background hover:bg-muted/20',
         props.className
       )}
     >
@@ -78,11 +75,6 @@ export function PricingTierCard(props: PricingTierCardProps) {
         <h3 className='text-sm font-semibold tracking-wide uppercase'>
           {t(tier.nameKey)}
         </h3>
-        {tier.highlighted && (
-          <Badge className='rounded-full px-2.5 text-[11px]'>
-            {t('Most popular')}
-          </Badge>
-        )}
       </div>
 
       <TierPrice tier={tier} />
@@ -94,7 +86,7 @@ export function PricingTierCard(props: PricingTierCardProps) {
       <div className='flex-1' />
       <Button
         className='group mt-8 w-full rounded-lg'
-        variant={tier.highlighted ? 'default' : 'outline'}
+        variant='outline'
         render={<Link to={tier.ctaTo} />}
       >
         {t(tier.ctaKey)}

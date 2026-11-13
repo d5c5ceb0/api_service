@@ -49,10 +49,11 @@ describe('Pricing section', () => {
     expect(screen.getByText('$99')).toBeInTheDocument()
   })
 
-  test('marks exactly one tier as most popular', () => {
+  test('renders the three tiers without any popularity badge', () => {
     render(<Pricing />)
 
-    expect(screen.getAllByText('Most popular')).toHaveLength(1)
+    // Creem compliance: no "most popular" style badges on plan cards.
+    expect(screen.queryByText('Most popular')).not.toBeInTheDocument()
   })
 
   test('points every tier CTA at the sign-up route', () => {
@@ -69,15 +70,15 @@ describe('Pricing section', () => {
   test('lists plan features inside each tier card', () => {
     render(<Pricing />)
 
-    expect(screen.getByText('1M tokens per month')).toBeInTheDocument()
-    expect(screen.getByText('50M tokens per month')).toBeInTheDocument()
     expect(
-      screen.getByText('SSO, audit logs and role-based access')
+      screen.getByText('One workspace with a single agent')
     ).toBeInTheDocument()
     expect(
-      screen.getByText(
-        'All plans include the full provider catalog. Prices are in USD, billed monthly.'
-      )
+      screen.getByText('Autoscaling for agent runs')
+    ).toBeInTheDocument()
+    expect(screen.getByText('Single sign-on (SSO)')).toBeInTheDocument()
+    expect(
+      screen.getByText('Prices are in USD, billed monthly.')
     ).toBeInTheDocument()
   })
 })
